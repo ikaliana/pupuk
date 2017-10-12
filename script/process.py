@@ -7,17 +7,23 @@ conn = None
 try:
 	conn = psycopg2.connect(host="localhost",database="dss_pupuk", user="postgres", password="password")
 	cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-	cur.execute("SELECT * FROM modelregresi")
-	print "Total Rows: ", cur.rowcount
+
+	#GET MODEL FOR N
+	cur.execute("SELECT * FROM modelregresi where ID=1")
+	if cur.rowcount > 0:
+		row = cur.fetchone()
+
+	#print "Total Rows: ", cur.rowcount
 	#row = cur.fetchone()
  
 	# while row is not None:
 	#     print(row)
 	#     row = cur.fetchone()
 
-	rows = cur.fetchall()
-	for row in rows:
-		print row["nama_model"]
+	#rows = cur.fetchall()
+	#for row in rows:
+	#	print row["nama_model"]
+	
 	cur.close()
 
 except (Exception, psycopg2.DatabaseError) as error:
